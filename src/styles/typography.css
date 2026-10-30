@@ -1,0 +1,102 @@
+/* Common system fonts resized to set about as wide as the real ones, measured against them,
+   so text barely moves when the web fonts arrive. */
+@font-face {
+  font-family: 'Cormorant Fallback';
+  src: local('Georgia'), local('Noto Serif'), local('Times New Roman');
+  size-adjust: 88%;
+}
+
+@font-face {
+  font-family: 'Cormorant Fallback';
+  font-style: italic;
+  src: local('Georgia Italic'), local('Noto Serif Italic'), local('Times New Roman Italic');
+  size-adjust: 78%;
+}
+
+@font-face {
+  font-family: 'Manrope Fallback';
+  src: local('Arial'), local('Roboto'), local('Helvetica Neue');
+  size-adjust: 102.7%;
+}
+
+h1,
+h2,
+h3,
+h4,
+.text-display,
+.text-h1,
+.text-h2,
+.text-h3,
+.text-wordmark {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-kerning: normal;
+  text-wrap: balance;
+}
+
+.text-display {
+  font-size: var(--text-display);
+  font-weight: 300;
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+}
+
+h1,
+.text-h1 {
+  font-size: var(--text-h1);
+  font-weight: 300;
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+}
+
+h2,
+.text-h2 {
+  font-size: var(--text-h2);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-display);
+}
+
+h3,
+.text-h3 {
+  font-size: var(--text-h3);
+  font-weight: 500;
+  line-height: var(--leading-heading);
+}
+
+p,
+.text-body {
+  max-inline-size: var(--measure);
+  text-wrap: pretty;
+}
+
+/* Capitals, because only capitals take wide letter-spacing well. */
+.text-wordmark {
+  font-weight: 500;
+  letter-spacing: var(--tracking-wordmark);
+  margin-inline-end: calc(var(--tracking-wordmark) * -1);
+  text-transform: uppercase;
+}
+
+.text-lead {
+  font-family: var(--font-display);
+  font-size: var(--text-lead);
+  font-style: italic;
+  font-weight: 400;
+  line-height: var(--leading-lead);
+}
+
+.text-small {
+  font-size: var(--text-small);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-label {
+  font-size: var(--text-label);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}

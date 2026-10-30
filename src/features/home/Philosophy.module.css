@@ -1,0 +1,56 @@
+.philosophy {
+  padding-block: var(--space-10);
+}
+
+.motto {
+  max-inline-size: 16ch;
+  margin-block-end: var(--space-8);
+}
+
+.beats {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.beat {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+}
+
+/* The icons stand on the same brass line as the bottles. */
+.iconShelf {
+  padding-block-end: var(--space-half);
+  border-block-end: var(--hairline) solid var(--line-accent);
+  color: var(--accent-text);
+}
+
+/* Each drawing starts about 12 px inside its box, so this lines it up with the text below. */
+.iconShelf svg {
+  margin-inline-start: -0.75rem;
+}
+
+.beat p {
+  max-inline-size: 32ch;
+}
+
+@media (min-width: 900px) {
+  .philosophy {
+    padding-block: var(--space-16);
+  }
+
+  .motto {
+    max-inline-size: 20ch;
+  }
+
+  /* No gap between columns, so the line runs unbroken across all three beats. */
+  .beats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .beat p,
+  .beat h3 {
+    padding-inline-end: var(--space-5);
+  }
+}

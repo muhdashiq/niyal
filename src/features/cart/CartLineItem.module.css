@@ -1,0 +1,69 @@
+.line {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: var(--space-2);
+}
+
+.details {
+  display: grid;
+  align-content: start;
+  gap: var(--space-half);
+  min-inline-size: 0;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.name {
+  font-size: var(--text-lead);
+  line-height: 1.2;
+}
+
+.nameLink {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-min);
+  text-decoration: none;
+}
+
+.lineTotal {
+  flex: none;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+/* The bag page has room for a larger bottle and the tagline. */
+.roomy {
+  grid-template-columns: 6rem minmax(0, 1fr);
+}
+
+.roomy .name {
+  font-size: var(--text-h3);
+}
+
+@media (min-width: 600px) {
+  .roomy {
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .roomy .details {
+    gap: var(--space-1);
+  }
+}

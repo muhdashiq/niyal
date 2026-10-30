@@ -1,0 +1,47 @@
+.bottle,
+.photo {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 2 / 3;
+}
+
+.photo {
+  object-fit: contain;
+}
+
+.shadow,
+.body,
+.label,
+.cap {
+  transform-box: view-box;
+  transition: transform var(--duration-slow) var(--ease-settle);
+}
+
+/* Each part grows from where it meets the part below it, so the bottle stays on its baseline. */
+.shadow,
+.body {
+  transform-origin: 100px 284px;
+}
+
+.label {
+  transform-origin: 100px 216px;
+}
+
+.cap {
+  transform-origin: 100px 94px;
+}
+
+.labelName {
+  fill: #2a1c14;
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.labelSize {
+  fill: #6e5a47;
+  font-family: var(--font-body);
+  font-size: 5.5px;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.08em;
+}

@@ -1,0 +1,48 @@
+.bespoke {
+  padding-block: var(--space-10);
+}
+
+.layout {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.copy {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+}
+
+.copy h2 {
+  max-inline-size: 14ch;
+}
+
+.shelf {
+  display: flex;
+  justify-content: center;
+  border-block-end: var(--hairline) solid var(--line-accent);
+}
+
+.bottle {
+  inline-size: min(60%, 15rem);
+}
+
+@media (min-width: 900px) {
+  .bespoke {
+    padding-block: var(--space-16);
+  }
+
+  .layout {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: center;
+    column-gap: var(--space-10);
+  }
+
+  .shelf {
+    order: -1;
+  }
+
+  .bottle {
+    inline-size: min(66%, 20rem);
+  }
+}

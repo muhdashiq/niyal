@@ -1,0 +1,92 @@
+.ambient {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* The drift is so slow you notice it only after a while. Even at its brightest,
+   the muted text above it keeps its AA contrast. */
+.lamp,
+.tint {
+  position: absolute;
+  aspect-ratio: 1;
+  will-change: transform;
+}
+
+.lamp {
+  inline-size: 130vmin;
+  background-image: radial-gradient(closest-side, rgb(199 164 104 / 0.2), transparent);
+  animation: lamp-drift 34s ease-in-out infinite alternate;
+}
+
+.tint {
+  inline-size: 80vmin;
+  animation: tint-drift 26s ease-in-out infinite alternate;
+}
+
+.right .lamp {
+  inset-block-end: -12%;
+  inset-inline-end: -30%;
+}
+
+.right .tint {
+  inset-block-end: -4%;
+  inset-inline-end: -8%;
+}
+
+.center .lamp,
+.center .tint {
+  inset-inline: 0;
+  margin-inline: auto;
+}
+
+.center .lamp {
+  inset-block-end: -30%;
+}
+
+.center .tint {
+  inset-block-end: -8%;
+}
+
+@keyframes lamp-drift {
+  from {
+    opacity: 0.75;
+    transform: translate3d(6%, 4%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(-8%, -6%, 0);
+  }
+}
+
+@keyframes tint-drift {
+  from {
+    opacity: 1;
+    transform: translate3d(-6%, -3%, 0);
+  }
+
+  to {
+    opacity: 0.65;
+    transform: translate3d(7%, 5%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lamp,
+  .tint {
+    animation: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .right .lamp {
+    inset-inline-end: -14%;
+  }
+
+  .right .tint {
+    inset-inline-end: 0;
+  }
+}

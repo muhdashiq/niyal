@@ -1,0 +1,49 @@
+.field {
+  display: grid;
+  align-content: start;
+  gap: var(--space-half);
+  min-inline-size: 0;
+}
+
+.label {
+  font-size: var(--text-small);
+  font-weight: 600;
+}
+
+.optional {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.input {
+  inline-size: 100%;
+  min-block-size: 3rem;
+  padding-inline: var(--space-2);
+  border: var(--hairline) solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-raised);
+}
+
+.textarea {
+  min-block-size: 7rem;
+  padding-block: var(--space-1);
+  line-height: var(--leading-body);
+  resize: vertical;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+/* An error shows in the heavier outline and the message below, as well as in the colour. */
+.input[aria-invalid='true'] {
+  border-color: var(--error);
+  box-shadow: inset 0 0 0 var(--hairline) var(--error);
+}
+
+.error {
+  color: var(--error);
+  font-size: var(--text-small);
+  font-weight: 500;
+}

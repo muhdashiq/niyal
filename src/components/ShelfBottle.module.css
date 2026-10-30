@@ -1,0 +1,6 @@
+/* This box ends at the drawing's baseline, so the next line down is the shelf the
+   bottle stands on, and its shadow falls across that line. */
+.shelfBottle {
+  aspect-ratio: 200 / 284;
+  min-block-size: 0;
+}

@@ -1,0 +1,7 @@
+.item {
+  padding-block: var(--space-2);
+}
+
+.item + .item {
+  border-block-start: var(--hairline) solid var(--line);
+}

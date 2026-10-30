@@ -1,0 +1,161 @@
+/*
+ * Aesthetic direction: an atelier at dusk.
+ *
+ * A perfumer's workroom after the daylight has gone: oud-dark wood, sandal-toned
+ * paper under a lamp, one thin line of aged brass. The site stays almost colourless
+ * on purpose, so the only saturated colour in the room is the perfume in the bottle.
+ * Display type is a warm old-style serif, set large and light. Small tracked capitals
+ * are kept for what a perfumer would write on a label: sizes, notes, families.
+ * Motion settles slowly, like oil in glass, and only answers something the visitor did.
+ */
+
+:root {
+  /* Palette. Components use the semantic tokens below, never these directly. */
+  --oud-900: #1f1510;
+  --oud-800: #2b1e17;
+  --oud-700: #4a3a2e;
+  --oud-500: #8c7a63;
+  --oud-400: #b9a78f;
+  --sandal-300: #d8cbb4;
+  --sandal-200: #efe5d3;
+  --sandal-100: #f7f0e3;
+  --ink: #2a1c14;
+  --ink-muted: #6e5a47;
+  --brass-700: #7a5a23;
+  --brass-500: #b8934f;
+  --brass-400: #c7a468;
+  --brass-300: #d4b57e;
+  --brass-200: #e2cb9f;
+  --ember-700: #8f2a1e;
+  --ember-300: #f0a99a;
+
+  /* Type families */
+  --font-display: 'Cormorant', 'Cormorant Fallback', Georgia, serif;
+  --font-body: 'Manrope', 'Manrope Fallback', Arial, sans-serif;
+
+  /* Fluid type scale, interpolated between 360 px and 1440 px viewports */
+  --text-label: clamp(0.75rem, 0.729rem + 0.093vw, 0.8125rem);
+  --text-small: clamp(0.875rem, 0.854rem + 0.093vw, 0.9375rem);
+  --text-body: clamp(1rem, 0.958rem + 0.185vw, 1.125rem);
+  --text-lead: clamp(1.3125rem, 1.208rem + 0.463vw, 1.625rem);
+  --text-h3: clamp(1.625rem, 1.458rem + 0.741vw, 2.125rem);
+  --text-h2: clamp(2.25rem, 1.833rem + 1.852vw, 3.5rem);
+  --text-h1: clamp(3rem, 2.25rem + 3.333vw, 5.25rem);
+  --text-display: clamp(3.625rem, 2.083rem + 6.852vw, 8.25rem);
+
+  --leading-display: 1.02;
+  --leading-heading: 1.12;
+  --leading-lead: 1.35;
+  --leading-body: 1.65;
+
+  --tracking-display: -0.015em;
+  --tracking-label: 0.16em;
+  --tracking-wordmark: 0.18em;
+
+  /* 8 px spacing scale, with one half step for tight optical adjustments */
+  --space-half: 0.25rem;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  --space-10: 5rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+
+  --gutter: clamp(1rem, 4vw, 4rem);
+  --content-max: 90rem;
+  --measure: 65ch;
+  --header-height: 4rem;
+  --bottom-bar: 0px;
+
+  /* Stacking order */
+  --z-header: 20;
+  --z-overlay: 30;
+  --z-skip-link: 40;
+
+  /* Shape */
+  --radius-sm: 2px;
+  --hairline: 1px;
+  --hit-min: 2.75rem;
+
+  /* Motion */
+  --duration-fast: 160ms;
+  --duration-base: 280ms;
+  --duration-slow: 600ms;
+  --ease-settle: cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
+@media (max-width: 899.98px) {
+  /* Room for the sticky Add to bag bar on phones. */
+  :root[data-bottom-bar] {
+    --bottom-bar: 4.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  :root {
+    --header-height: 4.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration-base: 0.01ms;
+    --duration-slow: 0.01ms;
+  }
+}
+
+/* Light surface: content, the default */
+:root,
+[data-surface='light'] {
+  color-scheme: light;
+  --surface: var(--sandal-200);
+  --surface-raised: var(--sandal-100);
+  --text: var(--ink);
+  --text-muted: var(--ink-muted);
+  --accent-text: var(--brass-700);
+  --accent-fill: var(--brass-500);
+  --accent-fill-hover: var(--brass-400);
+  --accent-edge: var(--brass-700);
+  --on-accent: var(--oud-900);
+  --line: var(--sandal-300);
+  --line-strong: var(--oud-500);
+  --line-accent: var(--brass-500);
+  --wash: rgb(42 28 20 / 0.07);
+  --focus: var(--ink);
+  --error: var(--ember-700);
+}
+
+/* Dark surface: hero and feature sections */
+[data-surface='dark'] {
+  color-scheme: dark;
+  --surface: var(--oud-900);
+  --surface-raised: var(--oud-800);
+  --text: var(--sandal-200);
+  --text-muted: var(--oud-400);
+  --accent-text: var(--brass-300);
+  --accent-fill: var(--brass-400);
+  --accent-fill-hover: var(--brass-200);
+  --accent-edge: var(--brass-400);
+  --on-accent: var(--oud-900);
+  --line: var(--oud-700);
+  --line-strong: var(--oud-500);
+  --line-accent: var(--brass-400);
+  --wash: rgb(239 229 211 / 0.09);
+  --focus: var(--sandal-200);
+  --error: var(--ember-300);
+}
+
+[data-surface] {
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+[data-surface='dark'] {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

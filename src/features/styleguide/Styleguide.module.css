@@ -1,0 +1,144 @@
+.intro {
+  padding-block: var(--space-12) var(--space-10);
+  padding-inline: var(--gutter);
+}
+
+.wordmark {
+  font-size: var(--text-display);
+  margin-block-end: var(--space-3);
+}
+
+.band {
+  padding-block: var(--space-10) var(--space-5);
+  padding-inline: var(--gutter);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.panel {
+  display: grid;
+  align-content: start;
+  gap: var(--space-5);
+  padding-block: var(--space-6) var(--space-8);
+  padding-inline: var(--gutter);
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: var(--space-3) var(--space-2);
+}
+
+.chip {
+  block-size: var(--space-8);
+  margin-block-end: var(--space-1);
+  border: var(--hairline) solid var(--line-strong);
+  border-radius: var(--radius-sm);
+}
+
+.token {
+  font-variant-ligatures: none;
+}
+
+.numeric {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.contrast {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+}
+
+.contrast caption {
+  padding-block-end: var(--space-2);
+  text-align: start;
+}
+
+.contrast th,
+.contrast td {
+  padding-block: var(--space-half);
+  padding-inline-end: var(--space-2);
+  border-block-start: var(--hairline) solid var(--line);
+  font-weight: 400;
+  text-align: start;
+}
+
+.sample {
+  display: inline-block;
+  padding-inline: var(--space-1);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+.failing {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.sectionHeading {
+  margin-block-end: var(--space-5);
+}
+
+.typeScale {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.typeStep {
+  display: grid;
+  gap: var(--space-1);
+  padding-block-start: var(--space-2);
+  border-block-start: var(--hairline) solid var(--line);
+}
+
+.specimen {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.priceColumn {
+  display: grid;
+  justify-content: start;
+  justify-items: end;
+}
+
+.bottleGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.bottleRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: end;
+  gap: var(--space-half);
+}
+
+.cartLines {
+  display: grid;
+  gap: var(--space-1);
+  margin-block: var(--space-2);
+}
+
+.bottleLarge {
+  inline-size: min(100%, 30rem);
+  margin-inline: auto;
+}
+
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

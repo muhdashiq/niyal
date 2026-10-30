@@ -1,0 +1,10 @@
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.label svg {
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+}

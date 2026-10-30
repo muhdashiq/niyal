@@ -1,0 +1,78 @@
+.header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  border-block-end: var(--hairline) solid var(--line);
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  block-size: var(--header-height);
+}
+
+.start {
+  justify-self: start;
+}
+
+/* The icons sit inside 44 px hit areas, so these margins line the drawn icon up with the gutter. */
+.menuSlot {
+  margin-inline-start: calc((var(--hit-min) - 1.5rem) / -2);
+}
+
+.end {
+  justify-self: end;
+  margin-inline-end: calc((var(--hit-min) - 1.5rem) / -2);
+}
+
+.nav {
+  display: none;
+}
+
+.navList {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.navLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-min);
+  font-size: var(--text-small);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: var(--space-1);
+  block-size: var(--hairline);
+  background-color: var(--accent-text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-settle);
+}
+
+.navLink[aria-current='page']::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) {
+  .navLink:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (min-width: 900px) {
+  .menuSlot {
+    display: none;
+  }
+
+  .nav {
+    display: block;
+  }
+}

@@ -1,0 +1,13 @@
+.divider {
+  block-size: var(--hairline);
+  margin: 0;
+  border: 0;
+}
+
+.quiet {
+  background-color: var(--line);
+}
+
+.accent {
+  background-color: var(--line-accent);
+}

@@ -1,0 +1,8 @@
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-min);
+  font-size: var(--text-lead);
+  line-height: 1;
+  text-decoration: none;
+}

@@ -1,0 +1,59 @@
+.guide {
+  padding-block: var(--space-10);
+}
+
+/* The bottles share one shelf, so the difference in size is the first thing you see. */
+.shelf,
+.advice {
+  display: grid;
+  gap: 0 var(--space-half);
+}
+
+.shelf {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: end;
+  margin-block-start: var(--space-3);
+  border-block-end: var(--hairline) solid var(--line-accent);
+}
+
+.advice {
+  margin-block-start: var(--space-4);
+}
+
+.size {
+  display: grid;
+  gap: var(--space-half);
+  padding-block: var(--space-2);
+  border-block-end: var(--hairline) solid var(--line);
+}
+
+.size:last-child {
+  border-block-end: 0;
+}
+
+@media (min-width: 900px) {
+  .guide {
+    padding-block: var(--space-16);
+  }
+
+  .shelf,
+  .advice {
+    column-gap: var(--space-3);
+  }
+
+  .advice {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .size {
+    align-content: start;
+    justify-items: center;
+    padding-block: 0;
+    border-block-end: 0;
+    text-align: center;
+  }
+
+  .size dd {
+    max-inline-size: 26ch;
+  }
+}

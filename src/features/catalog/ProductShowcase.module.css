@@ -1,0 +1,47 @@
+.showcase {
+  padding-block: var(--space-10);
+}
+
+.heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+  margin-block-end: var(--space-3);
+}
+
+/* A swipeable row on phones. The next card peeks in to show there is more. */
+.row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(78vw, 20rem);
+  gap: var(--space-3);
+  padding-block: var(--space-half);
+  overflow-x: auto;
+  scroll-padding-inline: var(--gutter);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  scroll-snap-align: start;
+}
+
+@media (min-width: 900px) {
+  .showcase {
+    padding-block: var(--space-16);
+  }
+
+  .row {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+    overflow: visible;
+  }
+}

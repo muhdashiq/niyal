@@ -1,0 +1,9 @@
+.tag {
+  display: inline-block;
+  padding-block: var(--space-half);
+  /* Trailing tracking adds to the right side, so that side gets less padding. */
+  padding-inline: var(--space-1) calc(var(--space-1) - var(--tracking-label));
+  border: var(--hairline) solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+}

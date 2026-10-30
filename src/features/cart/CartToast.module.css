@@ -1,0 +1,37 @@
+/* Clicks pass through the empty region, and only the toast itself takes them. */
+.region {
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.drawer {
+  position: absolute;
+  inset-inline: var(--gutter);
+  inset-block-end: var(--space-1);
+  z-index: 1;
+}
+
+.page {
+  position: fixed;
+  inset-inline: var(--gutter);
+  inset-block-end: calc(var(--space-3) + var(--bottom-bar));
+  z-index: var(--z-header);
+}
+
+.toast {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  max-inline-size: 28rem;
+  padding: 0.375rem var(--space-2);
+  border: var(--hairline) solid var(--line-accent);
+  border-radius: var(--radius-sm);
+  pointer-events: auto;
+}
+
+.notice {
+  padding-block: var(--space-1);
+}

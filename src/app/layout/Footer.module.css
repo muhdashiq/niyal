@@ -1,0 +1,34 @@
+.footer {
+  padding-block: var(--space-10) calc(var(--space-3) + var(--bottom-bar));
+  border-block-start: var(--hairline) solid var(--line);
+}
+
+.top {
+  display: grid;
+  gap: var(--space-5);
+  padding-block-end: var(--space-6);
+}
+
+.brandLine {
+  max-inline-size: 17ch;
+}
+
+.links {
+  display: grid;
+  justify-items: start;
+}
+
+.copyright {
+  padding-block-start: var(--space-3);
+}
+
+@media (min-width: 900px) {
+  .top {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+
+  .links {
+    justify-items: end;
+  }
+}

@@ -1,0 +1,42 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100vh;
+  min-block-size: 100dvh;
+}
+
+/* Fills the screen on its own, so the footer stays below the fold while a page loads
+   and on short pages, rather than appearing and jumping away. */
+.main {
+  flex: 1;
+  min-block-size: calc(100vh - var(--header-height));
+}
+
+.main:focus {
+  outline: none;
+}
+
+.skipLink {
+  position: fixed;
+  inset-block-start: var(--space-1);
+  inset-inline-start: var(--space-1);
+  z-index: var(--z-skip-link);
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--hit-min);
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--accent-fill);
+  color: var(--on-accent);
+  font-size: var(--text-small);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--duration-fast) var(--ease-settle);
+}
+
+.skipLink:focus {
+  outline-color: var(--on-accent);
+  outline-offset: -4px;
+  transform: translateY(0);
+}

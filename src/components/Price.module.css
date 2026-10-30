@@ -1,0 +1,22 @@
+.price {
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.small {
+  font-size: var(--text-small);
+  font-weight: 500;
+}
+
+.medium {
+  font-size: var(--text-body);
+  font-weight: 500;
+}
+
+.large {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  line-height: var(--leading-heading);
+}
