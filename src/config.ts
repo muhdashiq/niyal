@@ -5,8 +5,8 @@ export const ORDER_REF_PREFIX = 'NYL';
 // TODO: replace with Niyal's WhatsApp number. International format, digits only.
 export const WHATSAPP_NUMBER = '91XXXXXXXXXX';
 
-// TODO: replace with the address the site is published at. Share previews need it in full.
-export const SITE_URL = 'https://YOUR-GITHUB-USERNAME.github.io/niyal-web';
+// Where the site is published. Share previews need the full address.
+export const SITE_URL = 'https://muhdashiq.com/niyal';
 
 // TODO: replace with Niyal's Instagram profile.
 export const INSTAGRAM_URL = 'https://www.instagram.com/';
