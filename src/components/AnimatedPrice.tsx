@@ -11,7 +11,7 @@ export const AnimatedPrice = ({ amount, size }: ComponentProps<typeof Price>) =>
   <span className={styles.frame}>
     <AnimatePresence initial={false} mode="popLayout">
       <m.span
-        key={amount}
+        key={`${amount.currency}-${amount.amount}`}
         className={styles.figure}
         initial={{ opacity: 0, y: '0.5em' }}
         animate={{ opacity: 1, y: 0 }}

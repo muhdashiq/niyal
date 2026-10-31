@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { BRAND_NAME } from '../../config';
+import { useLocale } from '../../i18n/LocaleProvider';
 import { usePageMeta } from '../../lib/usePageMeta';
 import { openWhatsApp } from '../../lib/whatsappUrl';
 import { useCart } from '../cart/CartProvider';
@@ -20,15 +22,16 @@ import { buildWhatsAppMessage, createOrderRef } from './whatsapp';
 export const CheckoutPage = () => {
   const cart = useCart();
   const navigate = useNavigate();
+  const { t, language } = useLocale();
   const [placedOrder, setPlacedOrder] = useState<PlacedOrder | null>(loadPlacedOrder);
   usePageMeta({
-    title: placedOrder ? 'Your order is ready' : 'Checkout',
-    description: 'Enter your delivery details and send your Niyal order on WhatsApp.',
+    title: placedOrder ? t.checkout.readyTitle : t.checkout.title,
+    description: t.checkout.description(BRAND_NAME),
   });
 
   const placeOrder = (customer: Customer) => {
     const orderRef = createOrderRef();
-    const message = buildWhatsAppMessage(cart, customer, orderRef);
+    const message = buildWhatsAppMessage(cart, customer, orderRef, language);
     const order = { orderRef, message };
     saveCustomer(customer);
     savePlacedOrder(order);
@@ -58,7 +61,7 @@ export const CheckoutPage = () => {
 
   return (
     <div className={`page-width ${styles.page}`}>
-      <h1 className={styles.title}>Checkout</h1>
+      <h1 className={styles.title}>{t.checkout.title}</h1>
       <div className={styles.layout}>
         <div className={styles.summary}>
           <CheckoutSummary />

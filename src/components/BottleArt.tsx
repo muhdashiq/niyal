@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import { useLocale } from '../i18n/LocaleProvider';
 import type { BottleSize, Perfume } from '../types';
 import styles from './BottleArt.module.css';
 
@@ -10,8 +11,6 @@ type BottleArtProps = {
 };
 
 type Proportions = { width: number; height: number; cap: number };
-
-const describeBottle = (name: string, size: BottleSize) => `${name}, ${size} ml bottle`;
 
 // Scales applied to the 100 ml drawing below. Transforms alone change the size,
 // so switching sizes is a plain CSS transition.
@@ -54,7 +53,13 @@ const BRASS_STOPS = [
   { offset: '100%', color: '#7a5a23' },
 ];
 
+const useBottleDescription = (name: string, size: BottleSize) => {
+  const { t, formatSize } = useLocale();
+  return t.common.bottle(name, formatSize(size));
+};
+
 const BottleIllustration = ({ perfume, size, decorative }: BottleArtProps) => {
+  const description = useBottleDescription(perfume.name, size);
   const uniqueId = useId().replace(/:/g, '');
   const gradient = (name: string) => `${uniqueId}-${name}`;
   const proportions = PROPORTIONS[size];
@@ -67,7 +72,7 @@ const BottleIllustration = ({ perfume, size, decorative }: BottleArtProps) => {
       viewBox="0 0 200 300"
       role={decorative ? undefined : 'img'}
       aria-hidden={decorative ? true : undefined}
-      aria-label={decorative ? undefined : describeBottle(perfume.name, size)}
+      aria-label={decorative ? undefined : description}
     >
       <defs>
         <radialGradient id={gradient('shadow')}>
@@ -195,6 +200,8 @@ const BottleIllustration = ({ perfume, size, decorative }: BottleArtProps) => {
 };
 
 export const BottleArt = ({ perfume, size, decorative, priority }: BottleArtProps) => {
+  const description = useBottleDescription(perfume.name, size);
+
   if (!perfume.image) {
     return <BottleIllustration perfume={perfume} size={size} decorative={decorative} />;
   }
@@ -203,7 +210,7 @@ export const BottleArt = ({ perfume, size, decorative, priority }: BottleArtProp
     <img
       className={styles.photo}
       src={`${import.meta.env.BASE_URL}${perfume.image.replace(/^\//, '')}`}
-      alt={decorative ? '' : describeBottle(perfume.name, size)}
+      alt={decorative ? '' : description}
       loading={priority ? 'eager' : 'lazy'}
     />
   );

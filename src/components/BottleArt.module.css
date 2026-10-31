@@ -31,6 +31,12 @@
   transform-origin: 100px 94px;
 }
 
+/* The label is printed on the bottle, so it reads the same way on an Arabic page. */
+.labelName,
+.labelSize {
+  direction: ltr;
+}
+
 .labelName {
   fill: #2a1c14;
   font-family: var(--font-display);

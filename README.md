@@ -28,8 +28,19 @@ Everything is in `src/config.ts`:
 
 - `WHATSAPP_NUMBER`: where orders go. International format, digits only, like `919876543210`.
 - `INSTAGRAM_URL`: the link in the footer.
-- `FREE_SHIPPING_THRESHOLD` and `SHIPPING_FEE`: in rupees.
+- `FREE_SHIPPING_THRESHOLD` and `SHIPPING_FEE`: in rupees, for orders to India only.
+- `CURRENCIES`: the exchange rates. They're fixed, not live, so update `rupeesPerUnit` when you want prices to move. Converted prices round up to the nearest `roundTo`.
 - `SITE_URL`: the published address, used by share previews.
+
+## Languages, currencies and shipping
+
+The site is in English, Arabic, Malayalam, Hindi, Tamil, Kannada, Urdu, Spanish, Japanese and Simplified Chinese. Prices show in INR, USD, AED, SAR, OMR, BHD, KWD, QAR, EUR or GBP. The globe in the header changes the language, the currency and the delivery country. A first visit guesses them from the browser's language and time zone.
+
+Each language has a file in `src/i18n/messages/`. `npm run build` fails if one is missing a sentence, so to change a line of text, change it in `en.ts` and then in the nine others.
+
+Perfume copy works differently, so adding a product can't break a page. The English lives in `src/data/perfumes.ts`, and the `perfumes` and `notes` at the bottom of each language file hold the translations. Anything missing there shows in English. If you change a description in `perfumes.ts`, the old translations stay until you change those too. Perfume names are never translated, because they're printed on the bottle.
+
+Orders to India use `SHIPPING_FEE` and `FREE_SHIPPING_THRESHOLD`. Orders anywhere else show "International courier charges apply", leave the charge out of the total, and you agree it on WhatsApp. The WhatsApp order message is always in English so you can read every order, and it tells you the language the customer used.
 
 ## Edit the products
 

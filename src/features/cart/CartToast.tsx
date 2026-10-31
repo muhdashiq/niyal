@@ -1,5 +1,7 @@
 import { AnimatePresence, m } from 'motion/react';
 import { Button } from '../../components/Button';
+import { MAX_QUANTITY } from '../../config';
+import { useLocale } from '../../i18n/LocaleProvider';
 import { DURATION, EASE_SETTLE } from '../../lib/motion';
 import styles from './CartToast.module.css';
 import { useCartUi } from './CartUiProvider';
@@ -12,6 +14,7 @@ type CartToastProps = {
 // CartAnnouncer reads these messages out, so this stays silent for screen readers.
 export const CartToast = ({ placement }: CartToastProps) => {
   const { toast, undoRemoval, pauseToastTimer, resumeToastTimer } = useCartUi();
+  const { t, formatSize } = useLocale();
 
   return (
     <div className={`${styles.region} ${styles[placement]}`}>
@@ -19,7 +22,7 @@ export const CartToast = ({ placement }: CartToastProps) => {
         {toast && (
           <m.div
             role="region"
-            aria-label="Bag message"
+            aria-label={t.cart.messageRegion}
             data-surface="dark"
             className={styles.toast}
             initial={{ opacity: 0, y: 8 }}
@@ -36,14 +39,14 @@ export const CartToast = ({ placement }: CartToastProps) => {
             {toast.kind === 'removed' ? (
               <>
                 <p className="text-small">
-                  Removed {toast.name}, {toast.line.size} ml
+                  {t.cart.removed(t.common.lineName(toast.name, formatSize(toast.line.size)))}
                 </p>
                 <Button data-undo-button variant="text" onClick={undoRemoval}>
-                  Undo
+                  {t.cart.undo}
                 </Button>
               </>
             ) : (
-              <p className={`text-small ${styles.notice}`}>{toast.message}</p>
+              <p className={`text-small ${styles.notice}`}>{t.cart.limit(MAX_QUANTITY)}</p>
             )}
           </m.div>
         )}

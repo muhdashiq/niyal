@@ -6,6 +6,7 @@ import {
   useMemo,
   useReducer,
 } from 'react';
+import { useLocale } from '../../i18n/LocaleProvider';
 import type { BottleSize, CartLine } from '../../types';
 import { cartReducer } from './cartReducer';
 import { CART_STORAGE_KEY, loadCart, saveCart } from './cartStorage';
@@ -33,6 +34,7 @@ const CartContext = createContext<CartContextValue | null>(null);
 
 export const CartProvider = ({ children }: CartProviderProps) => {
   const [storedLines, dispatch] = useReducer(cartReducer, undefined, loadCart);
+  const { currency, country } = useLocale();
 
   useEffect(() => saveCart(storedLines), [storedLines]);
 
@@ -47,8 +49,8 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     return () => window.removeEventListener('storage', syncFromOtherTab);
   }, []);
 
-  const lines = useMemo(() => priceLines(storedLines), [storedLines]);
-  const totals = useMemo(() => calculateTotals(lines), [lines]);
+  const lines = useMemo(() => priceLines(storedLines, currency), [storedLines, currency]);
+  const totals = useMemo(() => calculateTotals(lines, currency, country), [lines, currency, country]);
 
   const actions = useMemo<CartActions>(
     () => ({

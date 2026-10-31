@@ -4,7 +4,8 @@ import { Button } from '../../components/Button';
 import { QuantityStepper } from '../../components/QuantityStepper';
 import { SizeSelector } from '../../components/SizeSelector';
 import { MIN_QUANTITY } from '../../config';
-import { formatCurrency } from '../../lib/formatCurrency';
+import { useLocale } from '../../i18n/LocaleProvider';
+import { multiplyMoney } from '../../lib/money';
 import { useIsOnScreen } from '../../lib/useIsOnScreen';
 import type { BottleSize, Perfume } from '../../types';
 import { useCartUi } from '../cart/CartUiProvider';
@@ -21,12 +22,13 @@ type PurchasePanelProps = {
 
 export const PurchasePanel = ({ perfume, size, onSizeChange }: PurchasePanelProps) => {
   const [quantity, setQuantity] = useState(MIN_QUANTITY);
+  const { t, price, formatPrice } = useLocale();
   const { addedSize, add } = useAddConfirmation(perfume.id);
   const { openDrawer } = useCartUi();
   const actionRef = useRef<HTMLDivElement>(null);
   const isActionOnScreen = useIsOnScreen(actionRef);
-  const unitPrice = perfume.prices[size];
-  const total = unitPrice * quantity;
+  const unitPrice = price(perfume.prices[size]);
+  const total = multiplyMoney(unitPrice, quantity);
 
   const addAndOpenDrawer = () => {
     if (add(size, quantity)) openDrawer();
@@ -40,7 +42,7 @@ export const PurchasePanel = ({ perfume, size, onSizeChange }: PurchasePanelProp
         <div aria-live="polite">
           <AnimatedPrice amount={total} size="large" />
           {quantity > MIN_QUANTITY && (
-            <p className="text-small text-muted">{formatCurrency(unitPrice)} each</p>
+            <p className="text-small text-muted">{t.common.each(formatPrice(unitPrice))}</p>
           )}
         </div>
         <QuantityStepper value={quantity} onChange={setQuantity} />
@@ -50,6 +52,7 @@ export const PurchasePanel = ({ perfume, size, onSizeChange }: PurchasePanelProp
         <Button onClick={addAndOpenDrawer}>
           <AddToBagLabel isAdded={addedSize !== null} />
         </Button>
+        <p className="text-small text-muted">{t.shipping.notice}</p>
       </div>
 
       <StickyAddBar

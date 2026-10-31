@@ -6,6 +6,7 @@ import { CloseIcon } from '../../components/icons';
 import { IconButton } from '../../components/IconButton';
 import { SizeSelector } from '../../components/SizeSelector';
 import { DEFAULT_BOTTLE_SIZE } from '../../data/perfumes';
+import { useLocale } from '../../i18n/LocaleProvider';
 import { DURATION, EASE_SETTLE } from '../../lib/motion';
 import { useModal } from '../../lib/useModal';
 import type { BottleSize, Perfume } from '../../types';
@@ -27,6 +28,7 @@ const Sheet = ({ perfume, onDismiss, onAdd }: SheetProps) => {
   const sheetRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const [size, setSize] = useState<BottleSize>(DEFAULT_BOTTLE_SIZE);
+  const { t } = useLocale();
   useModal(sheetRef, onDismiss);
 
   return (
@@ -55,13 +57,13 @@ const Sheet = ({ perfume, onDismiss, onAdd }: SheetProps) => {
           <h2 id={titleId} className="text-h3">
             {perfume.name}
           </h2>
-          <IconButton label="Close" onClick={onDismiss}>
+          <IconButton label={t.common.close} onClick={onDismiss}>
             <CloseIcon />
           </IconButton>
         </div>
         <SizeSelector perfume={perfume} value={size} onChange={setSize} />
         <div className={styles.action}>
-          <Button onClick={() => onAdd(size)}>Add to bag</Button>
+          <Button onClick={() => onAdd(size)}>{t.common.addToBag}</Button>
         </div>
       </m.div>
     </>

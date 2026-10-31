@@ -6,6 +6,7 @@ import {
   useId,
 } from 'react';
 import { Select } from '../../components/Select';
+import { useLocale } from '../../i18n/LocaleProvider';
 import styles from './FormField.module.css';
 
 type ShellProps = {
@@ -30,7 +31,9 @@ type FieldShellProps = ShellProps & {
   children: (control: ControlProps) => ReactNode;
 };
 
+// Inputs follow whatever is typed in them, since an Arabic page can still get a Latin address.
 const FieldShell = ({ label, optional = false, hint, error, children }: FieldShellProps) => {
+  const { t } = useLocale();
   const id = useId();
   const hintId = `${id}-hint`;
   const errorId = `${id}-error`;
@@ -40,7 +43,7 @@ const FieldShell = ({ label, optional = false, hint, error, children }: FieldShe
     <div className={styles.field}>
       <label htmlFor={id} className={styles.label}>
         {label}
-        {optional && <span className={styles.optional}> (optional)</span>}
+        {optional && <span className={styles.optional}> {t.common.optional}</span>}
       </label>
       {hint && (
         <p id={hintId} className="text-small text-muted">
@@ -74,6 +77,7 @@ export const TextField = ({
     {(control) => (
       <input
         className={styles.input}
+        dir="auto"
         onChange={(event) => onValueChange(event.target.value)}
         {...control}
         {...inputProps}
@@ -94,6 +98,7 @@ export const TextAreaField = ({
     {(control) => (
       <textarea
         className={`${styles.input} ${styles.textarea}`}
+        dir="auto"
         onChange={(event) => onValueChange(event.target.value)}
         {...control}
         {...textareaProps}

@@ -23,6 +23,7 @@ export const parseStoredCustomer = (stored: unknown): Customer => {
     name: textFrom(record, 'name'),
     phone: textFrom(record, 'phone'),
     email: textFrom(record, 'email'),
+    country: textFrom(record, 'country'),
     addressLine1: textFrom(record, 'addressLine1'),
     addressLine2: textFrom(record, 'addressLine2'),
     city: textFrom(record, 'city'),

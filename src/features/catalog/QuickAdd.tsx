@@ -3,7 +3,7 @@ import { Button } from '../../components/Button';
 import { CheckIcon } from '../../components/icons';
 import { Price } from '../../components/Price';
 import { BOTTLE_SIZES } from '../../data/perfumes';
-import { formatCurrency } from '../../lib/formatCurrency';
+import { useLocale } from '../../i18n/LocaleProvider';
 import type { BottleSize, Perfume } from '../../types';
 import styles from './ProductCard.module.css';
 import { SizeSheet } from './SizeSheet';
@@ -19,6 +19,7 @@ export const QuickAdd = ({ perfume }: QuickAddProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const addButtonRef = useRef<HTMLButtonElement>(null);
   const { addedSize, add } = useAddConfirmation(perfume.id);
+  const { t, price, formatPrice, formatSize } = useLocale();
 
   const dismissSheet = () => {
     setIsSheetOpen(false);
@@ -32,29 +33,32 @@ export const QuickAdd = ({ perfume }: QuickAddProps) => {
 
   return (
     <>
-      <ul className={styles.pills} aria-label={`Add ${perfume.name} to your bag`}>
-        {BOTTLE_SIZES.map((size) => (
-          <li key={size}>
-            <button
-              type="button"
-              className={styles.pill}
-              aria-label={`Add ${size} ml for ${formatCurrency(perfume.prices[size])}`}
-              onClick={() => add(size)}
-            >
-              {addedSize === size ? (
-                <span className={styles.pillAdded}>
-                  <CheckIcon />
-                  Added
-                </span>
-              ) : (
-                <>
-                  <span>{size} ml</span>
-                  <Price amount={perfume.prices[size]} size="small" />
-                </>
-              )}
-            </button>
-          </li>
-        ))}
+      <ul className={styles.pills} aria-label={t.catalog.addPerfume(perfume.name)}>
+        {BOTTLE_SIZES.map((size) => {
+          const sizePrice = price(perfume.prices[size]);
+          return (
+            <li key={size}>
+              <button
+                type="button"
+                className={styles.pill}
+                aria-label={t.catalog.addSize(formatSize(size), formatPrice(sizePrice))}
+                onClick={() => add(size)}
+              >
+                {addedSize === size ? (
+                  <span className={styles.pillAdded}>
+                    <CheckIcon />
+                    {t.common.added}
+                  </span>
+                ) : (
+                  <>
+                    <span>{formatSize(size)}</span>
+                    <Price amount={sizePrice} size="compact" />
+                  </>
+                )}
+              </button>
+            </li>
+          );
+        })}
       </ul>
 
       <div className={styles.touchAdd}>
@@ -62,11 +66,11 @@ export const QuickAdd = ({ perfume }: QuickAddProps) => {
           ref={addButtonRef}
           variant="ghost"
           size="compact"
-          aria-label={`Add ${perfume.name} to your bag`}
+          aria-label={t.catalog.addPerfume(perfume.name)}
           aria-haspopup="dialog"
           onClick={() => setIsSheetOpen(true)}
         >
-          {addedSize ? 'Added' : 'Add'}
+          {addedSize ? t.common.added : t.catalog.add}
         </Button>
       </div>
 

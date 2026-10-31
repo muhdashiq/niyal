@@ -16,7 +16,7 @@
 .progress {
   block-size: 100%;
   background-color: var(--accent-text);
-  transform-origin: left;
+  transform-origin: var(--origin-start);
   transition: transform var(--duration-slow) var(--ease-settle);
 }
 

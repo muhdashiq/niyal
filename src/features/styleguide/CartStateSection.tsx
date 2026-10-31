@@ -56,8 +56,8 @@ export const CartStateSection = () => {
         ))}
       </ul>
       <p data-testid="cart-totals">
-        {itemCount} items, subtotal <Price amount={subtotal} />, shipping <Price amount={shipping} />,
-        total <Price amount={total} />
+        {itemCount} items, subtotal <Price amount={subtotal} />, shipping {shipping.kind}, total{' '}
+        <Price amount={total} />
       </p>
     </section>
   );

@@ -4,6 +4,8 @@ import { MenuIcon } from '../../components/icons';
 import { IconButton } from '../../components/IconButton';
 import { CartButton } from '../../features/cart/CartButton';
 import { useCart } from '../../features/cart/CartProvider';
+import { HeaderPreferences } from '../../features/preferences/HeaderPreferences';
+import { useLocale } from '../../i18n/LocaleProvider';
 import styles from './Header.module.css';
 import { MobileMenu } from './MobileMenu';
 import { NAV_LINKS } from './navigation';
@@ -14,6 +16,7 @@ export const Header = () => {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const { pathname } = useLocation();
   const { itemCount } = useCart();
+  const { t } = useLocale();
 
   const dismissMenu = () => {
     setIsMenuOpen(false);
@@ -27,7 +30,7 @@ export const Header = () => {
           <div className={styles.menuSlot}>
             <IconButton
               ref={menuButtonRef}
-              label="Open menu"
+              label={t.layout.openMenu}
               aria-haspopup="dialog"
               aria-expanded={isMenuOpen}
               onClick={() => setIsMenuOpen(true)}
@@ -35,7 +38,7 @@ export const Header = () => {
               <MenuIcon />
             </IconButton>
           </div>
-          <nav aria-label="Main" className={styles.nav}>
+          <nav aria-label={t.layout.mainNavigation} className={styles.nav}>
             <ul className={styles.navList}>
               {NAV_LINKS.map((link) => (
                 <li key={link.to}>
@@ -44,7 +47,7 @@ export const Header = () => {
                     className={styles.navLink}
                     aria-current={link.to === pathname ? 'page' : undefined}
                   >
-                    {link.label}
+                    {t.layout[link.label]}
                   </Link>
                 </li>
               ))}
@@ -55,6 +58,7 @@ export const Header = () => {
         <Wordmark />
 
         <div className={styles.end}>
+          <HeaderPreferences />
           <CartButton count={itemCount} />
         </div>
       </div>

@@ -15,11 +15,10 @@ import { useCart } from './CartProvider';
 import type { PricedLine } from './cartTotals';
 
 const TOAST_MS = 4000;
-const LIMIT_NOTICE = `Your bag holds up to ${MAX_QUANTITY} of each size, so we kept it at ${MAX_QUANTITY}.`;
 
 export type CartToast =
   | { kind: 'removed'; line: CartLine; index: number; name: string }
-  | { kind: 'notice'; message: string };
+  | { kind: 'limit' };
 
 type CartUiValue = {
   isDrawerOpen: boolean;
@@ -88,7 +87,7 @@ export const CartUiProvider = ({ children }: CartUiProviderProps) => {
     (perfumeId: string, size: BottleSize, quantity = MIN_QUANTITY) => {
       const existing = lines.find((line) => line.perfumeId === perfumeId && line.size === size);
       const held = existing?.quantity ?? 0;
-      if (held + quantity > MAX_QUANTITY) showToast({ kind: 'notice', message: LIMIT_NOTICE });
+      if (held + quantity > MAX_QUANTITY) showToast({ kind: 'limit' });
       if (held >= MAX_QUANTITY) return false;
       add(perfumeId, size, quantity);
       return true;
@@ -100,7 +99,7 @@ export const CartUiProvider = ({ children }: CartUiProviderProps) => {
     ({ perfumeId, size, quantity }: PricedLine, newSize: BottleSize) => {
       const colliding = lines.find((line) => line.perfumeId === perfumeId && line.size === newSize);
       if (colliding && colliding.quantity + quantity > MAX_QUANTITY) {
-        showToast({ kind: 'notice', message: LIMIT_NOTICE });
+        showToast({ kind: 'limit' });
       }
       // A new size means a new list item, so focus has to be sent on to it explicitly.
       requestedLineFocus.current = lineKey(perfumeId, newSize);

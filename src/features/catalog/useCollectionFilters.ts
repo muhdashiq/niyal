@@ -5,18 +5,13 @@ import type { SortOption } from './selectPerfumes';
 
 const DEFAULT_SORT: SortOption = 'featured';
 
-export const SORT_OPTIONS: readonly { value: SortOption; label: string }[] = [
-  { value: 'featured', label: 'Featured' },
-  { value: 'price-asc', label: 'Price, low to high' },
-  { value: 'price-desc', label: 'Price, high to low' },
-];
+export const SORT_OPTIONS: readonly SortOption[] = ['featured', 'price-asc', 'price-desc'];
 
 // The URL can be edited by hand, so anything it holds is checked before use.
 const isFragranceFamily = (value: string): value is FragranceFamily =>
   FRAGRANCE_FAMILIES.some((family) => family === value);
 
-const findSortOption = (value: string | null) =>
-  SORT_OPTIONS.find((option) => option.value === value)?.value;
+const findSortOption = (value: string | null) => SORT_OPTIONS.find((option) => option === value);
 
 export const useCollectionFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();

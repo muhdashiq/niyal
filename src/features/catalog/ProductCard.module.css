@@ -80,7 +80,7 @@
   align-content: center;
   inline-size: 100%;
   min-block-size: 3.25rem;
-  padding-inline: var(--space-half);
+  padding-inline: 0;
   border: var(--hairline) solid var(--line-strong);
   border-radius: var(--radius-sm);
   background: none;

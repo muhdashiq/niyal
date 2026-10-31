@@ -3,6 +3,7 @@ import { useId, useRef, useState } from 'react';
 import { ButtonLink } from '../../components/Button';
 import { CloseIcon } from '../../components/icons';
 import { IconButton } from '../../components/IconButton';
+import { useLocale } from '../../i18n/LocaleProvider';
 import { DESKTOP_QUERY } from '../../lib/breakpoints';
 import { DURATION, EASE_SETTLE } from '../../lib/motion';
 import { useModal } from '../../lib/useModal';
@@ -19,11 +20,14 @@ const TRANSITION = { duration: DURATION.base, ease: EASE_SETTLE };
 const DrawerPanel = () => {
   const { lines } = useCart();
   const { dismissDrawer, closeDrawerForNavigation } = useCartUi();
+  const { t, isRightToLeft } = useLocale();
   const panelRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
-  const [hiddenPosition] = useState(() =>
-    window.matchMedia(DESKTOP_QUERY).matches ? { x: '100%' } : { y: '100%' },
-  );
+  // The panel sits at the inline end, which is the left edge in Arabic and Urdu.
+  const [hiddenPosition] = useState(() => {
+    if (!window.matchMedia(DESKTOP_QUERY).matches) return { y: '100%' };
+    return { x: isRightToLeft ? '-100%' : '100%' };
+  });
   useModal(panelRef, dismissDrawer);
 
   return (
@@ -50,9 +54,9 @@ const DrawerPanel = () => {
       >
         <div className={styles.heading}>
           <h2 id={titleId} className="text-h3">
-            Your bag
+            {t.cart.title}
           </h2>
-          <IconButton label="Close bag" onClick={dismissDrawer}>
+          <IconButton label={t.cart.closeBag} onClick={dismissDrawer}>
             <CloseIcon />
           </IconButton>
         </div>
@@ -73,10 +77,10 @@ const DrawerPanel = () => {
             <OrderTotals />
             <div className={styles.actions}>
               <ButtonLink to="/cart" variant="ghost" onClick={closeDrawerForNavigation}>
-                View bag
+                {t.cart.viewBag}
               </ButtonLink>
               <ButtonLink to="/checkout" onClick={closeDrawerForNavigation}>
-                Checkout
+                {t.cart.checkout}
               </ButtonLink>
             </div>
           </div>

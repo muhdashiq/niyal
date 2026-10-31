@@ -47,6 +47,8 @@
   --leading-heading: 1.12;
   --leading-lead: 1.35;
   --leading-body: 1.65;
+  --leading-label: 1.4;
+  --lead-style: italic;
 
   --tracking-display: -0.015em;
   --tracking-label: 0.16em;
@@ -69,6 +71,7 @@
   --content-max: 90rem;
   --measure: 65ch;
   --header-height: 4rem;
+  --banner-height: 2.25rem;
   --bottom-bar: 0px;
 
   /* Stacking order */
@@ -158,4 +161,13 @@
 [data-surface='dark'] {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Which side a bar grows from, for transform-origin, which has no logical keyword. */
+:root {
+  --origin-start: left;
+}
+
+:root[dir='rtl'] {
+  --origin-start: right;
 }

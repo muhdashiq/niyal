@@ -6,7 +6,8 @@ import { Button } from '../../components/Button';
 import { QuantityStepper } from '../../components/QuantityStepper';
 import { Select } from '../../components/Select';
 import { BOTTLE_SIZES } from '../../data/perfumes';
-import { formatCurrency } from '../../lib/formatCurrency';
+import { useLocale } from '../../i18n/LocaleProvider';
+import { localisePerfume } from '../../i18n/localisePerfume';
 import styles from './CartLineItem.module.css';
 import { useCart } from './CartProvider';
 import type { PricedLine } from './cartTotals';
@@ -27,7 +28,9 @@ const focusUndoButton = () => {
 export const CartLineItem = ({ line, variant, onNavigate }: CartLineItemProps) => {
   const { setQuantity } = useCart();
   const { removeLine, changeLineSize } = useCartUi();
+  const { t, formatPrice, formatSize } = useLocale();
   const { perfume, perfumeId, size, quantity, unitPrice, lineTotal } = line;
+  const lineName = t.common.lineName(perfume.name, formatSize(size));
 
   const handleSizeChange = (value: string) => {
     const newSize = BOTTLE_SIZES.find((candidate) => String(candidate) === value);
@@ -58,23 +61,23 @@ export const CartLineItem = ({ line, variant, onNavigate }: CartLineItemProps) =
           </div>
         </div>
 
-        {variant === 'roomy' && <p className="text-muted">{perfume.tagline}</p>}
+        {variant === 'roomy' && <p className="text-muted">{localisePerfume(perfume, t).tagline}</p>}
 
         <div className={styles.controls}>
           <Select
-            aria-label={`Size of ${perfume.name}`}
+            aria-label={t.cart.sizeOf(perfume.name)}
             data-line-focus={lineKey(perfumeId, size)}
             value={size}
             onChange={(event) => handleSizeChange(event.target.value)}
           >
             {BOTTLE_SIZES.map((option) => (
               <option key={option} value={option}>
-                {option} ml
+                {formatSize(option)}
               </option>
             ))}
           </Select>
           <QuantityStepper
-            label={`Quantity of ${perfume.name}, ${size} ml`}
+            label={t.cart.quantityOf(lineName)}
             value={quantity}
             announceChanges={false}
             onChange={(nextQuantity) => setQuantity(perfumeId, size, nextQuantity)}
@@ -82,13 +85,9 @@ export const CartLineItem = ({ line, variant, onNavigate }: CartLineItemProps) =
         </div>
 
         <div className={styles.footer}>
-          <p className="text-small text-muted">{formatCurrency(unitPrice)} each</p>
-          <Button
-            variant="text"
-            aria-label={`Remove ${perfume.name}, ${size} ml`}
-            onClick={handleRemove}
-          >
-            Remove
+          <p className="text-small text-muted">{t.common.each(formatPrice(unitPrice))}</p>
+          <Button variant="text" aria-label={t.cart.removeLine(lineName)} onClick={handleRemove}>
+            {t.cart.remove}
           </Button>
         </div>
       </div>

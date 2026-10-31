@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { CloseIcon } from '../../components/icons';
 import { IconButton } from '../../components/IconButton';
+import { useLocale } from '../../i18n/LocaleProvider';
 import { DESKTOP_QUERY } from '../../lib/breakpoints';
 import { DURATION, EASE_SETTLE } from '../../lib/motion';
 import { useModal } from '../../lib/useModal';
@@ -28,6 +29,7 @@ const LINK_VARIANTS: Variants = {
 
 const MenuOverlay = ({ onDismiss, onNavigate }: Omit<MobileMenuProps, 'isOpen'>) => {
   const overlayRef = useRef<HTMLDivElement>(null);
+  const { t } = useLocale();
   useModal(overlayRef, onDismiss);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const MenuOverlay = ({ onDismiss, onNavigate }: Omit<MobileMenuProps, 'isOpen'>)
       ref={overlayRef}
       role="dialog"
       aria-modal="true"
-      aria-label="Menu"
+      aria-label={t.layout.menu}
       data-surface="dark"
       className={styles.overlay}
       initial={{ opacity: 0 }}
@@ -54,19 +56,19 @@ const MenuOverlay = ({ onDismiss, onNavigate }: Omit<MobileMenuProps, 'isOpen'>)
     >
       <div className={styles.topBar}>
         <div className={styles.closeSlot}>
-          <IconButton label="Close menu" onClick={onDismiss}>
+          <IconButton label={t.layout.closeMenu} onClick={onDismiss}>
             <CloseIcon />
           </IconButton>
         </div>
         <Wordmark />
       </div>
 
-      <nav aria-label="Main" className={styles.nav}>
+      <nav aria-label={t.layout.mainNavigation} className={styles.nav}>
         <m.ul variants={LINK_LIST_VARIANTS} initial="hidden" animate="visible">
           {NAV_LINKS.map((link) => (
             <m.li key={link.to} variants={LINK_VARIANTS}>
               <Link to={link.to} className={`text-h1 ${styles.link}`} onClick={onNavigate}>
-                {link.label}
+                {t.layout[link.label]}
               </Link>
             </m.li>
           ))}

@@ -2,10 +2,12 @@ import { Button } from '../../components/Button';
 import { Divider } from '../../components/Divider';
 import { Price } from '../../components/Price';
 import { Tag } from '../../components/Tag';
+import type { Money } from '../../lib/money';
 import styles from './Styleguide.module.css';
 
 type Surface = 'dark' | 'light';
 
+const rupees = (amount: number): Money => ({ amount, currency: 'INR' });
 const SAMPLE_PRICES = [1800, 3200, 6400, 12500];
 const SAMPLE_FAMILIES = ['Woody', 'Floral', 'Oriental', 'Fresh', 'Gourmand', 'Citrus'];
 
@@ -34,14 +36,14 @@ const SurfaceSpecimens = ({ surface }: { surface: Surface }) => (
     <div className={styles.specimen}>
       <p className="text-small text-muted">Price</p>
       <div className={styles.row}>
-        <Price amount={1800} size="small" />
-        <Price amount={6400} />
-        <Price amount={12500} size="large" />
+        <Price amount={rupees(1800)} size="small" />
+        <Price amount={rupees(6400)} />
+        <Price amount={rupees(12500)} size="large" />
       </div>
       <ul className={styles.priceColumn}>
         {SAMPLE_PRICES.map((amount) => (
           <li key={amount}>
-            <Price amount={amount} />
+            <Price amount={rupees(amount)} />
           </li>
         ))}
       </ul>

@@ -4,6 +4,12 @@
   white-space: nowrap;
 }
 
+/* For the narrowest spots, where "KWD 10.5" has to fit a quarter of a product card. */
+.compact {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
 .small {
   font-size: var(--text-small);
   font-weight: 500;

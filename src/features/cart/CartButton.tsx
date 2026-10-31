@@ -2,9 +2,9 @@ import { useReducedMotion } from 'motion/react';
 import { type RefObject, useEffect, useRef } from 'react';
 import { IconButton } from '../../components/IconButton';
 import { BagIcon } from '../../components/icons';
+import { useLocale } from '../../i18n/LocaleProvider';
 import { DURATION, EASE_SETTLE } from '../../lib/motion';
 import styles from './CartButton.module.css';
-import { describeItemCount } from './cartTotals';
 import { useCartUi } from './CartUiProvider';
 
 type CartButtonProps = {
@@ -12,8 +12,6 @@ type CartButtonProps = {
 };
 
 const MAX_DISPLAYED_COUNT = 99;
-
-const describeBag = (count: number) => (count === 0 ? 'Bag, empty' : `Bag, ${describeItemCount(count)}`);
 
 const usePulseOnChange = (elementRef: RefObject<HTMLElement>, value: number) => {
   const previousValue = useRef(value);
@@ -33,10 +31,12 @@ const usePulseOnChange = (elementRef: RefObject<HTMLElement>, value: number) => 
 export const CartButton = ({ count }: CartButtonProps) => {
   const badgeRef = useRef<HTMLSpanElement>(null);
   const { openDrawer } = useCartUi();
+  const { t } = useLocale();
   usePulseOnChange(badgeRef, count);
+  const label = count === 0 ? t.cart.bagEmpty : t.cart.bagWithItems(t.cart.itemCount(count));
 
   return (
-    <IconButton label={describeBag(count)} aria-haspopup="dialog" onClick={openDrawer}>
+    <IconButton label={label} aria-haspopup="dialog" onClick={openDrawer}>
       <BagIcon />
       {count > 0 && (
         <span ref={badgeRef} className={styles.badge}>

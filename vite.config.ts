@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
-import { BRAND_NAME, SITE_URL } from './src/config';
+import { BRAND_NAME, SITE_URL } from './src/config.ts';
 
 // GitHub Pages serves the site from /<repo-name>/. Change this if the repo name changes.
 const REPO_NAME = 'niyal';

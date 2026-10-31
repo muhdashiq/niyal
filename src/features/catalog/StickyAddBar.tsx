@@ -2,6 +2,8 @@ import { AnimatePresence, m } from 'motion/react';
 import { createPortal } from 'react-dom';
 import { AnimatedPrice } from '../../components/AnimatedPrice';
 import { Button } from '../../components/Button';
+import { useLocale } from '../../i18n/LocaleProvider';
+import type { Money } from '../../lib/money';
 import { DURATION, EASE_SETTLE } from '../../lib/motion';
 import type { BottleSize } from '../../types';
 import { AddToBagLabel } from './AddToBagLabel';
@@ -11,20 +13,22 @@ type StickyAddBarProps = {
   isVisible: boolean;
   name: string;
   size: BottleSize;
-  total: number;
+  total: Money;
   isAdded: boolean;
   onAdd: () => void;
 };
 
 // Keeps Add to bag under the thumb on phones once the main button has scrolled away.
 // Hidden by CSS from 900 px up, where the details column has room to keep it close.
-export const StickyAddBar = ({ isVisible, name, size, total, isAdded, onAdd }: StickyAddBarProps) =>
-  createPortal(
+export const StickyAddBar = ({ isVisible, name, size, total, isAdded, onAdd }: StickyAddBarProps) => {
+  const { t, formatSize } = useLocale();
+
+  return createPortal(
     <AnimatePresence>
       {isVisible && (
         <m.div
           role="region"
-          aria-label="Quick add to bag"
+          aria-label={t.catalog.quickAdd}
           data-surface="dark"
           className={styles.bar}
           initial={{ y: '100%' }}
@@ -33,9 +37,7 @@ export const StickyAddBar = ({ isVisible, name, size, total, isAdded, onAdd }: S
           transition={{ duration: DURATION.base, ease: EASE_SETTLE }}
         >
           <div className={styles.summary}>
-            <p className={styles.name}>
-              {name}, {size} ml
-            </p>
+            <p className={styles.name}>{t.common.lineName(name, formatSize(size))}</p>
             <AnimatedPrice amount={total} />
           </div>
           <Button size="compact" onClick={onAdd}>
@@ -46,3 +48,4 @@ export const StickyAddBar = ({ isVisible, name, size, total, isAdded, onAdd }: S
     </AnimatePresence>,
     document.body,
   );
+};

@@ -1,5 +1,6 @@
 import { Select } from '../../components/Select';
 import { FRAGRANCE_FAMILIES } from '../../data/perfumes';
+import { useLocale } from '../../i18n/LocaleProvider';
 import type { FragranceFamily } from '../../types';
 import styles from './CollectionFilters.module.css';
 import type { SortOption } from './selectPerfumes';
@@ -19,39 +20,43 @@ export const CollectionFilters = ({
   onToggleFamily,
   onClearFamilies,
   onChangeSort,
-}: CollectionFiltersProps) => (
-  <div className={styles.filters}>
-    <div role="group" aria-label="Filter by fragrance family" className={styles.chips}>
-      <button
-        type="button"
-        className={styles.chip}
-        aria-pressed={families.length === 0}
-        onClick={onClearFamilies}
-      >
-        All
-      </button>
-      {FRAGRANCE_FAMILIES.map((family) => (
+}: CollectionFiltersProps) => {
+  const { t } = useLocale();
+
+  return (
+    <div className={styles.filters}>
+      <div role="group" aria-label={t.catalog.filterLabel} className={styles.chips}>
         <button
-          key={family}
           type="button"
           className={styles.chip}
-          aria-pressed={families.includes(family)}
-          onClick={() => onToggleFamily(family)}
+          aria-pressed={families.length === 0}
+          onClick={onClearFamilies}
         >
-          {family}
+          {t.catalog.all}
         </button>
-      ))}
-    </div>
-
-    <label className={styles.sort}>
-      <span className="text-small text-muted">Sort by</span>
-      <Select value={sort} onChange={(event) => onChangeSort(event.target.value)}>
-        {SORT_OPTIONS.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
+        {FRAGRANCE_FAMILIES.map((family) => (
+          <button
+            key={family}
+            type="button"
+            className={styles.chip}
+            aria-pressed={families.includes(family)}
+            onClick={() => onToggleFamily(family)}
+          >
+            {t.families[family]}
+          </button>
         ))}
-      </Select>
-    </label>
-  </div>
-);
+      </div>
+
+      <label className={styles.sort}>
+        <span className="text-small text-muted">{t.catalog.sortBy}</span>
+        <Select value={sort} onChange={(event) => onChangeSort(event.target.value)}>
+          {SORT_OPTIONS.map((option) => (
+            <option key={option} value={option}>
+              {t.catalog.sort[option]}
+            </option>
+          ))}
+        </Select>
+      </label>
+    </div>
+  );
+};

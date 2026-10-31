@@ -22,6 +22,8 @@
 }
 
 .end {
+  display: flex;
+  align-items: center;
   justify-self: end;
   margin-inline-end: calc((var(--hit-min) - 1.5rem) / -2);
 }
@@ -53,7 +55,7 @@
   block-size: var(--hairline);
   background-color: var(--accent-text);
   transform: scaleX(0);
-  transform-origin: left;
+  transform-origin: var(--origin-start);
   transition: transform var(--duration-base) var(--ease-settle);
 }
 

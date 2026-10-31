@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from 'react';
 import { AmbientLight } from '../../components/AmbientLight';
 import { Button, ButtonAnchor } from '../../components/Button';
 import { ShelfBottle } from '../../components/ShelfBottle';
+import { useLocale } from '../../i18n/LocaleProvider';
 import { whatsappUrl } from '../../lib/whatsappUrl';
 import { useCart } from '../cart/CartProvider';
 import type { PlacedOrder } from './checkoutStorage';
@@ -15,6 +16,7 @@ type OrderConfirmationProps = {
 
 export const OrderConfirmation = ({ order, onEditDetails, onFinish }: OrderConfirmationProps) => {
   const { lines } = useCart();
+  const { t } = useLocale();
   const headingRef = useRef<HTMLHeadingElement>(null);
   const firstLine = lines[0];
 
@@ -30,23 +32,25 @@ export const OrderConfirmation = ({ order, onEditDetails, onFinish }: OrderConfi
       <div className={`page-width ${styles.layout}`}>
         <div className={styles.copy}>
           <h1 ref={headingRef} tabIndex={-1} className={styles.heading}>
-            Your order is ready to send on WhatsApp
+            {t.checkout.confirmTitle}
           </h1>
-          <p className="text-lead text-muted">Tap send in WhatsApp to confirm.</p>
+          <p className="text-lead text-muted">{t.checkout.confirmBody}</p>
           <p className={styles.reference}>
-            <span className="text-small text-muted">Order ref</span>
-            <span className={styles.referenceValue}>{order.orderRef}</span>
+            <span className="text-small text-muted">{t.checkout.orderRef}</span>
+            <span dir="ltr" className={styles.referenceValue}>
+              {order.orderRef}
+            </span>
           </p>
           <div className={styles.actions}>
             <ButtonAnchor href={whatsappUrl(order.message)} target="_blank" rel="noopener noreferrer">
-              Open WhatsApp again
+              {t.checkout.openAgain}
             </ButtonAnchor>
             <Button variant="ghost" onClick={onFinish}>
-              Clear bag &amp; continue shopping
+              {t.checkout.clearAndContinue}
             </Button>
           </div>
           <Button variant="text" onClick={onEditDetails}>
-            Change my details
+            {t.checkout.changeDetails}
           </Button>
         </div>
 

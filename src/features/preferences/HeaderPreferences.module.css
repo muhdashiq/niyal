@@ -1,0 +1,36 @@
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-half);
+  min-block-size: var(--hit-min);
+  min-inline-size: var(--hit-min);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--text);
+  font-size: var(--text-small);
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-settle);
+}
+
+.trigger:active {
+  transform: scale(0.97);
+}
+
+/* On a phone the globe says enough, and the wordmark needs the room. */
+.currency {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .trigger {
+    padding-inline: var(--space-1);
+  }
+
+  .currency {
+    display: inline;
+  }
+}

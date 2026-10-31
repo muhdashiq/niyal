@@ -3,6 +3,8 @@ import { AmbientLight } from '../../components/AmbientLight';
 import { ShelfBottle } from '../../components/ShelfBottle';
 import { Tag } from '../../components/Tag';
 import { DEFAULT_BOTTLE_SIZE, PERFUMES } from '../../data/perfumes';
+import { useLocale } from '../../i18n/LocaleProvider';
+import { localisePerfume } from '../../i18n/localisePerfume';
 import { usePageMeta } from '../../lib/usePageMeta';
 import type { BottleSize, Perfume } from '../../types';
 import { NotesPyramid } from './NotesPyramid';
@@ -17,7 +19,9 @@ type PerfumeViewProps = {
 
 export const PerfumeView = ({ perfume }: PerfumeViewProps) => {
   const [size, setSize] = useState<BottleSize>(DEFAULT_BOTTLE_SIZE);
-  usePageMeta({ title: perfume.name, description: `${perfume.tagline} ${perfume.description}` });
+  const { t } = useLocale();
+  const { tagline, description, family, concentration } = localisePerfume(perfume, t);
+  usePageMeta({ title: perfume.name, description: `${tagline} ${description}` });
 
   // Tells the rest of the page to leave room at the bottom for the sticky bar on phones.
   useEffect(() => {
@@ -45,19 +49,19 @@ export const PerfumeView = ({ perfume }: PerfumeViewProps) => {
         <div className={styles.details}>
           <header className={styles.intro}>
             <div className={styles.meta}>
-              <Tag>{perfume.family}</Tag>
-              <p className="text-label text-muted">{perfume.concentration}</p>
+              <Tag>{family}</Tag>
+              <p className="text-label text-muted">{concentration}</p>
             </div>
-            <h1>{perfume.name}</h1>
-            <p className="text-lead text-muted">{perfume.tagline}</p>
+            <h1 lang="en">{perfume.name}</h1>
+            <p className="text-lead text-muted">{tagline}</p>
           </header>
-          <p>{perfume.description}</p>
+          <p>{description}</p>
           <PurchasePanel perfume={perfume} size={size} onSizeChange={setSize} />
           <NotesPyramid perfume={perfume} />
         </div>
       </div>
 
-      <ProductShowcase title="You may also like" perfumes={selectRelatedPerfumes(PERFUMES, perfume)} />
+      <ProductShowcase title={t.catalog.related} perfumes={selectRelatedPerfumes(PERFUMES, perfume)} />
     </>
   );
 };

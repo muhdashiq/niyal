@@ -12,6 +12,17 @@
   min-block-size: calc(100vh - var(--header-height));
 }
 
+.shippingBanner {
+  display: grid;
+  place-items: center;
+  min-block-size: var(--banner-height);
+  padding: var(--space-half) var(--gutter);
+  border-block-end: var(--hairline) solid var(--line);
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  text-align: center;
+}
+
 .main:focus {
   outline: none;
 }

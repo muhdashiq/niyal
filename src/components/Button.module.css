@@ -54,6 +54,7 @@
   font-size: var(--text-label);
   font-weight: 600;
   letter-spacing: var(--tracking-label);
+  text-align: center;
   text-transform: uppercase;
   /* Cancels the tracking after the last letter so the label sits optically centred. */
   margin-inline-end: calc(var(--tracking-label) * -1);
@@ -113,7 +114,7 @@
 .text .label::after {
   background-color: var(--accent-text);
   transform: scaleX(0);
-  transform-origin: left;
+  transform-origin: var(--origin-start);
   transition: transform var(--duration-base) var(--ease-settle);
 }
 
